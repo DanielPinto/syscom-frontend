@@ -1,21 +1,24 @@
-import {Route, Router, Switch} from 'react-router';
-import { createBrowserHistory } from 'history';
+import React from 'react';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+
+import PrivateRoute from '../PrivateRoutes';
+import PublicRoute from '../PublicRoutes';
 
 import Home from '../Pages/Home';
+import Product from '../Pages/Product';
 import Login from '../Pages/Login';
 import Register from '../Pages/Register';
 import NotFound from '../Pages/NotFound';
 
 const Routes = () => {
 
-    const history = createBrowserHistory();
-
-    return(
-        <Router history={history}>
+    return (
+        <Router>
             <Switch>
-                <Route exact path={'/'} component={Home} />
-                <Route exact path={'/login'} component={Login} />
-                <Route exact path={'/register'} component={Register} />
+                <PrivateRoute exact path={'/'} component={Home} />
+                <PrivateRoute path={'/product'} component={Product} />
+                <PublicRoute path={'/login'} component={Login} />
+                <PublicRoute path={'/register'} component={Register} />
                 <Route component={NotFound} />
             </Switch>
         </Router>

@@ -31,8 +31,6 @@ const Login = () => {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           }
-
-          console.log(form);
           
           axios.post("http://localhost:8000/api/login", 
           form,
@@ -40,7 +38,15 @@ const Login = () => {
             headers: headers
           })
             .then((response) => {
-              console.log(response.data);
+
+              if(response.data.token){
+                localStorage.setItem('user', response.data.user);
+                localStorage.setItem('token', response.data.token);
+                window.location.href = '/';
+              }
+
+              
+                
             })
             .catch((error) => {
                 console.log("ERRO_APP:" + error);
