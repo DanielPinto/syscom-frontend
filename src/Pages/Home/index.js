@@ -79,7 +79,7 @@ const Home = () => {
             <h1>Dashboard</h1>
 
             <form className="filter" onSubmit={onSubmit}>
-                <input type="text" placeholder="Search.." name="filter" onChange={onChange}/>
+                <input type="text" placeholder="Search by name" name="filter" onChange={onChange}/>
                 <button type="submit">Search</button>
             </form>
 
