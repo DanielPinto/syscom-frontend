@@ -47,7 +47,7 @@ const Home = () => {
                 'Authorization': 'Bearer ' + token
             }
 
-            const filter = form != '' ? `&name=${form.filter}` : ''
+            const filter = form !== '' ? `&name=${form.filter}` : ''
 
             const response = await axios.get("http://localhost:8000/api/products?page=" + page + filter,
                 {
