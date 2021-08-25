@@ -2,9 +2,15 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import Pagination from '../../Components/Pagination';
+import apiLink from '../../Components/Api';
+import ValidateToken from '../../Services/ValidateToken';
+
 import './style.css';
+import { Redirect } from 'react-router';
 
 const Home = () => {
+
+    const apiUrl = apiLink();
 
     const initialValues = {
         filter: '',
@@ -16,6 +22,7 @@ const Home = () => {
     const [last_page, setLast_page] = useState(null)
     const token = localStorage.getItem('token');
     const [form, setForm] = useState(initialValues);
+
 
     useEffect(() => {
         if (current_page == null)
@@ -49,7 +56,7 @@ const Home = () => {
 
             const filter = form !== '' ? `&name=${form.filter}` : ''
 
-            const response = await axios.get("http://localhost:8000/api/products?page=" + page + filter,
+            const response = await axios.get(apiUrl + "/api/products?page=" + page + filter,
                 {
                     headers: headers
                 });
@@ -63,15 +70,18 @@ const Home = () => {
             setLoad(false);
 
         } catch (error) {
+            if (error.response) {
+                console.log(error.response.status)
+                ValidateToken(error.response.status)
+              }
             setLoad(false);
-            console.log("ERRO_APP:" + error);
         }
 
     }
 
     const onSubmit = ev => {
         ev.preventDefault();
-        getDatas(current_page);
+        getDatas(1);
     }
 
     return (

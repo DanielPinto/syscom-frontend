@@ -1,5 +1,7 @@
 import {React} from 'react';
 
+import apiLink from '../../Components/Api';
+
 const Register = () => {
     return(
         <div className="container">

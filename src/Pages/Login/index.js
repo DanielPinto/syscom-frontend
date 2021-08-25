@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+import apiLink from '../../Components/Api';
+
 import './style.css';
 
 const Login = () => {
+
+    const apiUrl = apiLink();
 
     const initialValues = {
         email: '',
@@ -32,7 +36,7 @@ const Login = () => {
             'Content-Type': 'application/json'
           }
           
-          axios.post("http://localhost:8000/api/login", 
+          axios.post(apiUrl + "/api/login", 
           form,
           {
             headers: headers
@@ -44,12 +48,16 @@ const Login = () => {
                 localStorage.setItem('token', response.data.token);
                 window.location.href = '/';
               }
+              
+              if(response.message)
+                alert(response.message)
 
               
                 
             })
-            .catch((error) => {
+            .catch((error,message) => {
                 console.log("ERRO_APP:" + error);
+                alert("ERRO_APP:" + error , message);
             });
     }
 
